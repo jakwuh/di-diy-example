@@ -1,0 +1,16 @@
+{
+    "presets": [
+        "env",
+        "react"
+    ],
+    "plugins": [
+        "transform-typescript",
+        "transform-class-properties",
+        "transform-object-rest-spread"
+    ],
+    "parserOpts": {
+        "plugins": [
+            "decorators2"
+        ]
+    }
+}

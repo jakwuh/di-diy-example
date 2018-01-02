@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/server",
+    "target": "es2017",
+    "baseUrl": "./",
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "jsx": "react",
+    "paths": {
+      "*": [
+        "src/*"
+      ],
+      "typedi": ["node_modules/typedi/src/index.ts"],
+      "quantum-router": ["node_modules/quantum-router/src/router.ts"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "lib": [
+    "es5",
+    "es6",
+    "es7",
+    "es2015",
+    "es2016",
+    "es2017",
+    "esnext",
+    "dom"
+  ],
+  "paths": {
+    "*": [
+      "./*"
+    ]
+  }
+}
