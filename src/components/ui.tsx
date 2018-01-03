@@ -10,6 +10,8 @@ export {default as IconButton} from 'material-ui/IconButton';
 export {default as MenuItem} from 'material-ui/MenuItem';
 export {default as SelectField} from 'material-ui/SelectField';
 export {default as SvgIcon} from 'material-ui/SvgIcon';
+export {default as Avatar} from 'material-ui/Avatar';
+export {Card, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
 export {Table, TableHeader, TableRow, TableHeaderColumn, TableRowColumn, TableBody} from 'material-ui/Table';
 export {default as MoreVertIcon} from 'material-ui/svg-icons/navigation/more-vert';
 export {blue500} from 'material-ui/styles/colors';

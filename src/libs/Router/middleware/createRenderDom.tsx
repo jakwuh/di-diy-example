@@ -7,6 +7,7 @@ import {ContainerInstance} from 'typedi';
 import {pick} from 'lodash';
 import {CurrentUser} from '../../../entities/User/CurrentUser';
 import {AbstractRouter} from '../AbstractRouter';
+import {DocumentWrapper} from '../../../components/Document/DocumentWrapper';
 
 async function resolveComponent(container, Component, ComponentProps) {
     let componentProps = await container.get(ComponentProps);
@@ -54,11 +55,12 @@ export function createRenderDom({hydrate, render, router}: {hydrate?, render, ro
         );
 
         if (IS_SERVER) {
-            event.body = render(dom);
+            let documentDom = <DocumentWrapper>{dom}</DocumentWrapper>;
+            event.body = render(documentDom);
         } else {
             let renderFn = event.isFirstRender ? hydrate! : render;
 
-            renderFn(dom, document);
+            renderFn(dom, document.body);
         }
     };
 }

@@ -9,6 +9,7 @@ export class User extends AbstractModel {
     @observable password?: string;
     @observable loginAttempts?: number = 0;
     @observable role: Roles = Roles.User;
+    @observable avatarUrl?: string | null;
 
     urlRoot = '/api/users';
 
@@ -20,23 +21,11 @@ export class User extends AbstractModel {
         return this.role && this.role >= role;
     }
 
-    saveAdmin() {
-        return this.save();
-    }
-
-    invite() {
-        return this.post({
-            url: '/api/invite',
-            data: this.toJSON()
-        });
-    }
-
     toJSON() {
         return {
             id: this.id,
             email: this.email,
             role: this.role,
-            loginAttempts: this.loginAttempts
         };
     }
 }

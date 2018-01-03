@@ -46,7 +46,8 @@ let config: webpack.Configuration = {
             // CLIENT_ID: JSON.stringify('f10de77025978ee1ed0b'), //dev
             CLIENT_ID: JSON.stringify('fe2214b6b6d577b87355'),
             // CLIENT_SECRET: JSON.stringify('55b29302d04d21f8fc9af8be0e1d4d2af9fd0d6d') dev
-            CLIENT_SECRET: JSON.stringify('38e5d546fc26d3ffe7dab29f28cd80213afc4b38')
+            CLIENT_SECRET: JSON.stringify('38e5d546fc26d3ffe7dab29f28cd80213afc4b38'),
+            UPLOADCARE_PUBLIC_KEY: JSON.stringify('eb5849c2a9d3f73d3c05')
         })
     ]
 };

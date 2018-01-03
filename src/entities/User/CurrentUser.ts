@@ -55,6 +55,12 @@ export class CurrentUser extends User {
         });
     }
 
+    toJSON() {
+        return {
+            avatarUrl: this.avatarUrl
+        };
+    }
+
     static factory(request: AbstractRequest) {
         let user = new CurrentUser(request);
 

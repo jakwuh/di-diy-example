@@ -11,11 +11,12 @@ import {CurrentUser} from '../../entities/User/CurrentUser';
 import {validateEmail} from '../../helpers/validation';
 import {AdminZone} from '../../entities/Zone/AdminZone';
 import {AdminZones} from '../../entities/Zone/AdminZones';
+import {AdminUsers} from '../../entities/User/AdminUsers';
 
 interface ManageZonesTableRowProps {
     zone: AdminZone;
     zones: AdminZones;
-    users: Users;
+    users: AdminUsers;
     currentUser: CurrentUser;
 }
 

@@ -13,13 +13,15 @@ import {ManageUsersState} from '../../states/ManageUsersState';
 import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui.tsx';
 import {ManageUsersTableRow} from 'components/Manage/ManageUsersTableRow';
 import {User} from '../../entities/User/User';
+import {AdminUsers} from '../../entities/User/AdminUsers';
+import {AdminUser} from '../../entities/User/AdminUser';
 
 export class ManageUsersContainerProps {
     @Inject()
     currentUser: CurrentUser;
 
     @Inject()
-    users: Users;
+    users: AdminUsers;
 
     @Inject()
     routeState: ManageUsersState;
@@ -44,7 +46,7 @@ export class ManageUsersContainer extends BaseComponent<ManageUsersContainerProp
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                    {users.map((user: User) => {
+                    {users.map((user: AdminUser) => {
                         return (
                             <ManageUsersTableRow
                                 key={user.id}
@@ -56,7 +58,7 @@ export class ManageUsersContainer extends BaseComponent<ManageUsersContainerProp
                     })}
                     <ManageUsersTableRow
                         key="new"
-                        user={new User(users.request)}
+                        user={new AdminUser(users.request)}
                         users={users}
                         currentUser={currentUser}
                     />

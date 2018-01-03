@@ -9,6 +9,7 @@ import {HomeContainer, HomeContainerProps} from './components/Home/HomeContainer
 import {RouterEvent} from 'quantum-router/src/declarations';
 import {CurrentUser} from './entities/User/CurrentUser';
 import {Roles} from './enums';
+import {ProfileContainer, ProfileContainerProps} from './components/Profile/ProfileContainer';
 
 export enum Routes {
     home,
@@ -19,6 +20,7 @@ export enum Routes {
     confirm,
     manageUsers,
     manageZones,
+    profile
 }
 
 export const routesConfig = {
@@ -29,7 +31,8 @@ export const routesConfig = {
     '/reset-password/': Routes.resetPassword,
     '/confirm/': Routes.confirm,
     '/manage-users/': Routes.manageUsers,
-    '/manage-zones/': Routes.manageZones
+    '/manage-zones/': Routes.manageZones,
+    '/profile/': Routes.profile
 };
 
 export const containerConfig = {
@@ -80,5 +83,11 @@ export const containerConfig = {
         ComponentProps: ManageZonesContainerProps,
         check: (user: CurrentUser) => user.loggedIn && user.hasRole(Roles.Admin),
         fallback: Routes.home
+    },
+    [Routes.profile]: {
+        Component: ProfileContainer,
+        ComponentProps: ProfileContainerProps,
+        check: (user: CurrentUser) => user.loggedIn,
+        fallback: Routes.signIn
     }
 };

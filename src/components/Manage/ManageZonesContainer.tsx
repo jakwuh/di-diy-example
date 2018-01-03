@@ -15,13 +15,14 @@ import {User} from '../../entities/User/User';
 import {ManageZonesState} from '../../states/ManageZonesState';
 import {AdminZones} from '../../entities/Zone/AdminZones';
 import {AdminZone} from '../../entities/Zone/AdminZone';
+import {AdminUsers} from '../../entities/User/AdminUsers';
 
 export class ManageZonesContainerProps {
     @Inject()
     currentUser: CurrentUser;
 
     @Inject()
-    users: Users;
+    users: AdminUsers;
 
     @Inject()
     zones: AdminZones;

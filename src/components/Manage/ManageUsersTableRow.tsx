@@ -9,10 +9,12 @@ import {isEqual} from 'lodash';
 import {Roles, RolesNames} from '../../enums';
 import {CurrentUser} from '../../entities/User/CurrentUser';
 import {validateEmail} from '../../helpers/validation';
+import {AdminUser} from '../../entities/User/AdminUser';
+import {AdminUsers} from '../../entities/User/AdminUsers';
 
 interface ManageUsersTableRowProps {
-    user: User;
-    users: Users;
+    user: AdminUser;
+    users: AdminUsers;
     currentUser: CurrentUser;
 }
 

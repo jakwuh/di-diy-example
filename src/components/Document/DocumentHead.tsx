@@ -2,13 +2,13 @@ import AppBar from 'material-ui/AppBar';
 import * as React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {BaseComponent} from '../Common/BaseComponent';
-import {CurrentUser, User} from '../../entities/User/User';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {Routes} from '../../routes';
-import {FlatButton, IconButton, MoreVertIcon, MenuItem, IconMenu} from 'components/ui.tsx';
+import {FlatButton, IconButton, MoreVertIcon, MenuItem, IconMenu, Avatar} from 'components/ui.tsx';
 import {observer} from 'mobx-react';
 import {Roles} from '../../enums';
 import {action} from 'mobx';
+import {CurrentUser} from '../../entities/User/CurrentUser';
 
 interface DocumentHeadProps {
     user: CurrentUser;
@@ -35,6 +35,11 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
         this.props.router.navigateTo(Routes.manageZones);
     }
 
+    @action.bound
+    profile() {
+        this.props.router.navigateTo(Routes.profile);
+    }
+
     getLoggedInEl() {
         let {user} = this.props;
 
@@ -46,6 +51,7 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
+
                 {!user.hasRole(Roles.Manager) ? null :
                     <MenuItem
                         primaryText="Manage Users"
@@ -58,6 +64,11 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                         onClick={this.manageZones}
                     />
                 }
+                <MenuItem
+                    primaryText="Profile"
+                    onClick={this.profile}
+                    disabled={user.isLoading}
+                />
                 <MenuItem
                     primaryText="Sign out"
                     onClick={this.signOut}
@@ -74,6 +85,8 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
     }
 
     render() {
+        let {user} = this.props;
+
         return (
             <AppBar
                 title="Timezone"
@@ -83,7 +96,17 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                 }}
                 iconElementRight={this.props.user.loggedIn ? this.getLoggedInEl() : this.getLoggedOutEl()}
                 onTitleClick={() => this.props.router.navigateTo(Routes.home)}
-            />
+            >
+                {!user.loggedIn ? null :
+                    <Avatar onClick={this.profile} src={user.avatarUrl} style={{
+                        position: 'absolute',
+                        right: 50,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer'
+                    }}/>
+                }
+            </AppBar>
         )
     }
 

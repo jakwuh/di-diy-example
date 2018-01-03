@@ -4,7 +4,6 @@ import {CurrentUser} from '../../entities/User/CurrentUser';
 import {Inject} from 'typedi';
 import {ZonesState} from '../../states/ZonesState';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
-import {AdminZone} from '../../entities/Zone/AdminZone';
 import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn, DoneIcon} from 'components/ui.tsx';
 import {ZoneTableRow} from './ZoneTableRow';
 import {CurrentZone} from '../../entities/Zone/CurrentZone';
