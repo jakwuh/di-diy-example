@@ -25,6 +25,11 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
         }, console.error);
     }
 
+    @action.bound
+    manageUsers() {
+        this.props.router.navigateTo(Routes.manageUsers);
+    }
+
     getLoggedInEl() {
         let {user} = this.props;
 
@@ -36,7 +41,11 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
-                {user.hasRole(Roles.Manager) ? <MenuItem primaryText="Manage Users"/> : null}
+                {user.hasRole(Roles.Manager) ?
+                    <MenuItem
+                        primaryText="Manage Users"
+                        onClick={this.manageUsers}
+                    /> : null}
                 {user.hasRole(Roles.Admin) ? <MenuItem primaryText="Manage Timezones"/> : null}
                 <MenuItem
                     primaryText="Sign out"

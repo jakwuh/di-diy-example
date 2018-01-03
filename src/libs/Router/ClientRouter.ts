@@ -16,6 +16,7 @@ export class ClientRouter extends AbstractRouter {
         this.use(createRenderDom({render, hydrate, router: this}));
         this.use(firstRender as any);
         this.use(this.redirectHandler.bind(this));
+        this.use(null as any, this.errorHandler.bind(this));
     }
 
     buildContainer(event) {
@@ -24,6 +25,10 @@ export class ClientRouter extends AbstractRouter {
 
     saveLastEvent(event) {
         this.lastEvent = event;
+    }
+
+    errorHandler(error) {
+        console.error(error);
     }
 
     createFirstRender() {

@@ -6,10 +6,6 @@ import {Service} from 'typedi';
 @Service({id: CurrentUser, factory: CurrentUser.factory})
 export class CurrentUser extends User {
 
-    constructor(public request: AbstractRequest) {
-        super();
-    }
-
     get url() {
         return `/api/user/`;
     }
@@ -26,11 +22,10 @@ export class CurrentUser extends User {
 
     signUp() {
         return this.post({
-            url: '/api/users',
+            url: '/api/signup',
             data: {
                 email: this.email,
-                password: this.password,
-                role: Roles.User
+                password: this.password
             }
         });
     }
@@ -60,7 +55,7 @@ export class CurrentUser extends User {
         });
     }
 
-    static factory(request) {
+    static factory(request: AbstractRequest) {
         let user = new CurrentUser(request);
 
         return user.fetch().catch(error => {

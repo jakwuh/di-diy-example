@@ -5,4 +5,6 @@ export {default as FlatButton} from 'material-ui/FlatButton';
 export {default as IconMenu} from 'material-ui/IconMenu';
 export {default as IconButton} from 'material-ui/IconButton';
 export {default as MenuItem} from 'material-ui/MenuItem';
+export {default as SelectField} from 'material-ui/SelectField';
+export {Table, TableHeader, TableRow, TableHeaderColumn, TableRowColumn, TableBody} from 'material-ui/Table';
 export {default as MoreVertIcon} from 'material-ui/svg-icons/navigation/more-vert';

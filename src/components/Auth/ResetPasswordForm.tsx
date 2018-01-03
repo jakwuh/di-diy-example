@@ -53,11 +53,11 @@ export class ResetPasswordForm extends BaseComponent<ResetPasswordFormProps> {
                         disabled={isLoading}
                         type="submit"
                         label={'Reset password'}
-                        primary={true}
                         onClick={this.onSubmit}
                         style={{
                             float: 'right'
                         }}
+                        primary
                     />
 
                     {errors && errors.submit ? <span style={{

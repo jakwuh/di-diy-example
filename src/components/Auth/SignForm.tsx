@@ -67,11 +67,11 @@ export class SignForm extends BaseComponent<SignFormProps> {
                         disabled={isLoading}
                         type="submit"
                         label={signIn ? 'Sign in' : 'Sign up'}
-                        primary={true}
                         onClick={this.onSubmit}
                         style={{
                             float: 'right'
                         }}
+                        primary
                     />
 
                     {errors && errors.submit ? <span style={{

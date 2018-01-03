@@ -13,10 +13,12 @@ export const validateLoginParams = createValidator({
     password: 'required|min:4'
 });
 
-export const validateForgotParams = createValidator({
+export const validateEmail = createValidator({
     email: 'required|email'
 });
 
 export const validateResetPasswordParams = createValidator({
     password: 'required|min:4'
 });
+
+export const validateForgotParams = validateEmail;

@@ -6,6 +6,8 @@ import {SignInContainer, SignInContainerProps} from './components/Auth/SignInCon
 import {HomeContainer, HomeContainerProps} from './components/Home/HomeContainer';
 import {RouterEvent} from 'quantum-router/src/declarations';
 import {CurrentUser} from './entities/User/CurrentUser';
+import {ManageUsersContainer, ManageUsersContainerProps} from './components/Manage/ManageUsersContainer';
+import {Roles} from './enums';
 
 export enum Routes {
     home,
@@ -13,7 +15,8 @@ export enum Routes {
     signUp,
     forgot,
     resetPassword,
-    confirm
+    confirm,
+    manageUsers
 }
 
 export const routesConfig = {
@@ -22,7 +25,8 @@ export const routesConfig = {
     '/signup/': Routes.signUp,
     '/forgot/': Routes.forgot,
     '/reset-password/': Routes.resetPassword,
-    '/confirm/': Routes.confirm
+    '/confirm/': Routes.confirm,
+    '/manage-users/': Routes.manageUsers
 };
 
 export const containerConfig = {
@@ -60,6 +64,12 @@ export const containerConfig = {
         Component: ConfirmationContainer,
         ComponentProps: ConfirmationContainerProps,
         check: (user: CurrentUser) => !user.loggedIn,
+        fallback: Routes.home
+    },
+    [Routes.manageUsers]: {
+        Component: ManageUsersContainer,
+        ComponentProps: ManageUsersContainerProps,
+        check: (user: CurrentUser) => user.loggedIn && user.hasRole(Roles.Manager),
         fallback: Routes.home
     }
 };
