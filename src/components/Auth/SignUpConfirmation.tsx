@@ -3,10 +3,11 @@ import {BaseComponent} from '../Common/BaseComponent';
 import {SignPaper} from './SignPaper';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {User} from '../../entities/User/User';
+import {CurrentUser} from '../../entities/User/CurrentUser';
 
 interface SignUpConfirmationProps {
     router: AbstractRouter;
-    user: User;
+    user: CurrentUser;
 }
 
 export class SignUpConfirmation extends BaseComponent<SignUpConfirmationProps> {

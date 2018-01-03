@@ -61,15 +61,18 @@ export class CurrentUser extends User {
         };
     }
 
+    updateWithEvent(event) {
+        if (this.loggedIn) {
+            return this;
+        } else {
+            return this.fetch().catch(() => this);
+        }
+    }
+
     static factory(request: AbstractRequest) {
         let user = new CurrentUser(request);
 
-        return user.fetch().catch(error => {
-            if (!IS_SERVER) {
-                console.error(error);
-            }
-            return user;
-        });
+        return user.fetch().catch(() => user);
     }
 
 }

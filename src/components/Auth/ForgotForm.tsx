@@ -42,6 +42,8 @@ export class ForgotForm extends BaseComponent<ForgotFormProps> {
             <SignPaper signIn={false} router={router}>
                 <form onSubmit={this.onSubmit}>
                     <TextField
+                        id="forgot-email"
+                        name="email"
                         errorText={errors && errors.email}
                         floatingLabelText="Email"
                         value={email || ''}

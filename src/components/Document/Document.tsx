@@ -16,7 +16,7 @@ export class DocumentProps {
 export class Document extends BaseComponent<DocumentProps> {
     render() {
         return (
-            <div id="container">
+            <div>
                 <DocumentHead user={this.props.currentUser} router={this.props.router}/>
                 {this.props.children}
             </div>

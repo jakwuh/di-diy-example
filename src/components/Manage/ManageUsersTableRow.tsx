@@ -104,6 +104,7 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
         if (this.isEditing) {
             return (
                 <TextField
+                    id="manage-users-email"
                     name="email"
                     type="email"
                     value={user.email || ''}
@@ -121,6 +122,7 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
         if (this.isEditing) {
             return (
                 <TextField
+                    id="manage-users-login-attempts"
                     name="loginAttempts"
                     type="number"
                     min="0"

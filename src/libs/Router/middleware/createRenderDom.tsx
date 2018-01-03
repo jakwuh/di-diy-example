@@ -60,7 +60,7 @@ export function createRenderDom({hydrate, render, router}: {hydrate?, render, ro
         } else {
             let renderFn = event.isFirstRender ? hydrate! : render;
 
-            renderFn(dom, document.body);
+            renderFn(dom, document.getElementById('container'));
         }
     };
 }

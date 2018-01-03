@@ -17,7 +17,9 @@ export class DocumentWrapper extends BaseComponent {
                 <link rel="stylesheet" href="/assets/styles.css"/>
             </head>
             <body>
-            {this.props.children}
+            <div id="container">
+                {this.props.children}
+            </div>
             {IS_SERVER &&
             <script dangerouslySetInnerHTML={{__html: `UPLOADCARE_PUBLIC_KEY = '${UPLOADCARE_PUBLIC_KEY}';`}}/>}
             {IS_SERVER && <script src="https://code.jquery.com/jquery-3.1.0.min.js" charSet="utf-8"/>}

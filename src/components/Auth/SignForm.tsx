@@ -7,11 +7,12 @@ import {User} from '../../entities/User/User';
 import {observer} from 'mobx-react';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {SignPaper} from 'components/Auth/SignPaper';
+import {CurrentUser} from '../../entities/User/CurrentUser';
 
 interface SignFormProps {
     signIn: boolean;
     errors?: Dict;
-    user: User;
+    user: CurrentUser;
     onSubmit: any;
     router: AbstractRouter;
 }
@@ -49,6 +50,7 @@ export class SignForm extends BaseComponent<SignFormProps> {
             <SignPaper signIn={signIn} router={router}>
                 <form onSubmit={this.onSubmit}>
                     <TextField
+                        id="sign-email"
                         errorText={errors && errors.email}
                         floatingLabelText="Email"
                         value={email || ''}
@@ -56,6 +58,7 @@ export class SignForm extends BaseComponent<SignFormProps> {
                     /><br/>
 
                     <TextField
+                        id="sign-password"
                         type="password"
                         errorText={errors && errors.password}
                         floatingLabelText="Password"

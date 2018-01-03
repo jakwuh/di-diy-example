@@ -6,7 +6,7 @@ let root = resolve(__dirname, '../');
 let src = join(root, 'src');
 let dist = join(root, 'dist');
 
-let isDevelopment = false;
+let isDevelopment = true;
 
 let config: webpack.Configuration = {
     entry: {

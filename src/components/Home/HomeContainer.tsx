@@ -68,6 +68,7 @@ export class HomeContainer extends BaseComponent<HomeContainerProps> {
         if (this.filterOpened) {
             return [
                 <TextField
+                    id="home-zone-name"
                     key="input"
                     name="name"
                     type="text"

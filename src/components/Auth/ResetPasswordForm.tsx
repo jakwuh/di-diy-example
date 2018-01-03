@@ -42,6 +42,7 @@ export class ResetPasswordForm extends BaseComponent<ResetPasswordFormProps> {
             <SignPaper signIn={false} router={router}>
                 <form onSubmit={this.onSubmit}>
                     <TextField
+                        id="reset-password"
                         type="password"
                         errorText={errors && errors.password}
                         floatingLabelText="Password"

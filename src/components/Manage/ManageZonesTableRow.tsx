@@ -106,6 +106,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
         if (this.isEditing) {
             return (
                 <TextField
+                    id="manage-zones-name"
                     name="name"
                     type="text"
                     value={zone.name || ''}
@@ -123,6 +124,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
         if (this.isEditing) {
             return (
                 <TextField
+                    id="manage-zones-city"
                     name="city"
                     type="text"
                     value={zone.city || ''}
@@ -140,6 +142,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
         if (this.isEditing) {
             return (
                 <TextField
+                    id="manage-zones-offset"
                     name="offset"
                     type="number"
                     min="-12"

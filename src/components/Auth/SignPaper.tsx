@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Paper} from 'components/ui.tsx';
 import {Routes} from '../../routes';
-import {action} from 'mobx';
 import {BaseComponent} from '../Common/BaseComponent';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 
@@ -11,25 +10,6 @@ interface SignPaperProps {
 }
 
 export class SignPaper extends BaseComponent<SignPaperProps> {
-
-    @action.bound
-    onClickSignIn(event) {
-        event.preventDefault();
-        this.props.router.navigateTo(Routes.signIn)
-    }
-
-    @action.bound
-    onClickSignUp(event) {
-        event.preventDefault();
-        this.props.router.navigateTo(Routes.signUp)
-    }
-
-    @action.bound
-    onClickForgot(event) {
-        event.preventDefault();
-        this.props.router.navigateTo(Routes.forgot)
-    }
-
     render() {
         let bottomLinkStyle = {
             padding: '10px',
@@ -53,10 +33,10 @@ export class SignPaper extends BaseComponent<SignPaperProps> {
                 </Paper>
                 <p>
                     {this.props.signIn ?
-                        <a style={bottomLinkStyle} onClick={this.onClickForgot}> Forgot password?</a> : null}
+                        <a href={this.props.router.reverseFrom(Routes.forgot)} style={bottomLinkStyle}> Forgot password?</a> : null}
                     {this.props.signIn
-                        ? <a style={bottomLinkStyle} onClick={this.onClickSignUp}>Sign up</a>
-                        : <a style={bottomLinkStyle} onClick={this.onClickSignIn}>Sign in</a>
+                        ? <a href={this.props.router.reverseFrom(Routes.signUp)} style={bottomLinkStyle}>Sign up</a>
+                        : <a href={this.props.router.reverseFrom(Routes.signIn)} style={bottomLinkStyle}>Sign in</a>
                     }
                 </p>
             </div>

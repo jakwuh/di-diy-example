@@ -106,6 +106,7 @@ export class ZoneTableRow extends BaseComponent<ZoneTableRowProps> {
         if (this.isEditing) {
             return (
                 <TextField
+                    id="home-zone-edit-name"
                     name="name"
                     type="text"
                     value={zone.name || ''}
@@ -123,6 +124,7 @@ export class ZoneTableRow extends BaseComponent<ZoneTableRowProps> {
         if (this.isEditing) {
             return (
                 <TextField
+                    id="home-zone-edit-city"
                     name="city"
                     type="text"
                     value={zone.city || ''}
