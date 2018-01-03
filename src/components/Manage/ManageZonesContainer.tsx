@@ -65,7 +65,7 @@ export class ManageZonesContainer extends BaseComponent<ManageZonesContainerProp
                     {!users.length
                         ? <TableRow>No users available.</TableRow>
                         : <ManageZonesTableRow
-                            key="new"
+                            key={Date.now()}
                             zone={new AdminZone(zones.request)}
                             zones={zones}
                             users={users}

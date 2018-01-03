@@ -12,6 +12,8 @@ import {validateEmail} from '../../helpers/validation';
 import {AdminZone} from '../../entities/Zone/AdminZone';
 import {AdminZones} from '../../entities/Zone/AdminZones';
 import {AdminUsers} from '../../entities/User/AdminUsers';
+import {offsetToGMT} from '../../helpers/formatTime';
+import {range} from 'lodash';
 
 interface ManageZonesTableRowProps {
     zone: AdminZone;
@@ -86,13 +88,8 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
     }
 
     @action.bound
-    onChangeOffset(event) {
-        this.props.zone.offset = Number(event.currentTarget.value);
-    }
-
-    @action.bound
-    onBlurOffset() {
-        this.props.zone.offset = Math.max(-12, Math.min(12, this.props.zone.offset))
+    onChangeOffset(event, index, value) {
+        this.props.zone.offset = value;
     }
 
     @action.bound
@@ -141,19 +138,24 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
 
         if (this.isEditing) {
             return (
-                <TextField
+                <SelectField
                     id="manage-zones-offset"
                     name="offset"
-                    type="number"
-                    min="-12"
-                    max="12"
+                    maxHeight={200}
                     value={zone.offset}
                     onChange={this.onChangeOffset}
-                    onBlur={this.onBlurOffset}
-                />
+                >
+                    {range(-12, 13).map(value => {
+                        return <MenuItem
+                            key={value}
+                            value={value}
+                            primaryText={offsetToGMT(value)}
+                        />
+                    })}
+                </SelectField>
             );
         } else {
-            return zone.offset;
+            return offsetToGMT(zone.offset)
         }
     }
 
@@ -163,6 +165,8 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
         if (this.isEditing) {
             return (
                 <SelectField
+                    id="manage-zones-select-user"
+                    name="user"
                     value={zone.user && users.find(user => user.id === zone.user.id)}
                     onChange={this.onChangeUser}
                 >

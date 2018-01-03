@@ -5,6 +5,7 @@ import {Service} from 'typedi';
 
 @Service({id: CurrentUser, factory: CurrentUser.factory})
 export class CurrentUser extends User {
+    protected invalidated?: boolean;
 
     get url() {
         return `/api/user/`;
@@ -33,6 +34,8 @@ export class CurrentUser extends User {
     logout() {
         return this.fetch({
             url: '/api/logout'
+        }).then(() => {
+            this.invalidated = true;
         });
     }
 
@@ -62,6 +65,9 @@ export class CurrentUser extends User {
     }
 
     updateWithEvent(event) {
+        if (this.invalidated) {
+            return;
+        }
         if (this.loggedIn) {
             return this;
         } else {

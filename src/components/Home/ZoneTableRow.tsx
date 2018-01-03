@@ -141,8 +141,14 @@ export class ZoneTableRow extends BaseComponent<ZoneTableRowProps> {
 
         if (this.isEditing) {
             return (
-                <SelectField maxHeight={200} value={zone.offset} onChange={this.onChangeOffset}>
-                    {range(-12, 12).map(value => {
+                <SelectField
+                    id="home-zone-select-offset"
+                    name="offset"
+                    maxHeight={200}
+                    value={zone.offset}
+                    onChange={this.onChangeOffset}
+                >
+                    {range(-12, 13).map(value => {
                         return <MenuItem
                             key={value}
                             value={value}

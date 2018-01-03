@@ -57,7 +57,7 @@ export class ManageUsersContainer extends BaseComponent<ManageUsersContainerProp
                         );
                     })}
                     <ManageUsersTableRow
-                        key="new"
+                        key={Date.now()}
                         user={new AdminUser(users.request)}
                         users={users}
                         currentUser={currentUser}

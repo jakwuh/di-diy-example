@@ -114,7 +114,7 @@ export class HomeContainer extends BaseComponent<HomeContainerProps> {
                         );
                     })}
                     <ZoneTableRow
-                        key="new"
+                        key={Date.now()}
                         zone={new CurrentZone(zones.request)}
                         zones={zones}
                         currentUser={currentUser}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextField, RaisedButton} from 'components/ui.tsx';
+import {TextField, RaisedButton, FacebookIcon, GitHubIcon} from 'components/ui.tsx';
 import {BaseComponent} from '../Common/BaseComponent';
 import {FormEvent} from 'react';
 import {action, observable} from 'mobx';
@@ -77,11 +77,13 @@ export class SignForm extends BaseComponent<SignFormProps> {
                         primary
                     />
 
-                    {errors && errors.submit ? <span style={{
+                    <a href="/auth/facebook" style={{marginRight: 10}}><FacebookIcon/></a>
+                    <a href="/auth/github"><GitHubIcon/></a>
+
+                    {errors && errors.submit ? <div style={{
                         lineHeight: '36px',
-                        fontSize: '14px',
-                        float: 'left'
-                    }}>{errors.submit}</span> : null}
+                        fontSize: '14px'
+                    }}>{errors.submit}</div> : null}
                 </form>
             </SignPaper>
         )

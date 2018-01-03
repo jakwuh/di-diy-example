@@ -1,6 +1,6 @@
 import {AbstractEntity} from './AbstractEntity';
 import {Service} from 'typedi';
-import {computed, observable} from 'mobx';
+import {action, computed, observable} from 'mobx';
 
 @Service()
 export class AbstractModel extends AbstractEntity {
@@ -16,6 +16,7 @@ export class AbstractModel extends AbstractEntity {
         return !this.id;
     }
 
+    @action
     setAttributes(attrs) {
         this.ref = attrs;
         Object.assign(this, attrs);

@@ -20,7 +20,8 @@ export class ServerApplication {
         this.app.use('/assets', express.static(ASSETS_ROOT, {
             fallthrough: true
         }), () => {});
-        this.app.use('/api', proxy('http://localhost:3000', {
+
+        this.app.use(/\/(api|auth)/, proxy('http://localhost:3000', {
             proxyReqPathResolver: function(req) {
                 return parseUrl(req.originalUrl).path;
             }

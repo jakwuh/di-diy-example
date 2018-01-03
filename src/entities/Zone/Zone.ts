@@ -1,4 +1,4 @@
-import {computed, observable} from 'mobx';
+import {action, computed, observable} from 'mobx';
 import {AbstractModel} from '../Abstract/AbstractModel';
 import {Service} from 'typedi';
 import {User} from '../User/User';
@@ -10,6 +10,7 @@ export class Zone extends AbstractModel {
     @observable offset: number = 0;
     @observable user: User;
 
+    @action
     setAttributes(attrs) {
         super.setAttributes(attrs);
         this.user = new User(this.request);

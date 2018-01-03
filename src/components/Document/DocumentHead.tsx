@@ -9,6 +9,7 @@ import {observer} from 'mobx-react';
 import {Roles} from '../../enums';
 import {action} from 'mobx';
 import {CurrentUser} from '../../entities/User/CurrentUser';
+import {getAvatarUrl} from '../../helpers/getAvatarUrl';
 
 interface DocumentHeadProps {
     user: CurrentUser;
@@ -98,7 +99,7 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                 onTitleClick={() => this.props.router.navigateTo(Routes.home)}
             >
                 {!user.loggedIn ? null :
-                    <Avatar onClick={this.profile} src={user.avatarUrl} style={{
+                    <Avatar onClick={this.profile} src={getAvatarUrl(user)} style={{
                         position: 'absolute',
                         right: 50,
                         top: '50%',

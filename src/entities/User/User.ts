@@ -14,7 +14,7 @@ export class User extends AbstractModel {
     urlRoot = '/api/users';
 
     @computed get loggedIn() {
-        return this.id;
+        return Boolean(this.id);
     }
 
     hasRole(role: Roles) {

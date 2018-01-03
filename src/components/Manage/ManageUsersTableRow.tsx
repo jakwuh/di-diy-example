@@ -143,6 +143,8 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
         if (this.isEditing) {
             return (
                 <SelectField
+                    id="manage-users-select-role"
+                    name="role"
                     value={user.role}
                     onChange={this.onChangeRole}
                 >
