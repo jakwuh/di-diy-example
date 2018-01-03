@@ -40,7 +40,7 @@
         "style-loader": "^0.19.0",
         "ts-loader": "^3.2.0",
         "ts-node": "^3.3.0",
-        "typedi": "^0.6.0",
+        "typedi": "https://github.com/jakwuh/typedi/archive/master.tar.gz",
         "typescript": "^2.6.2",
         "uploadcare-widget": "^3.2.1",
         "validatorjs": "^3.13.6",
@@ -53,7 +53,7 @@
         "watch": "npm run watch:client | npm run watch:server",
         "build:server": "webpack --config ./build/webpack.server.config.ts",
         "build:client": "webpack --config ./build/webpack.client.config.ts",
-        "build": "npm run build:client | npm run build:server",
-        "start": "npm run build && node ./dist/server/server.js"
+        "build": "npm run build:client && npm run build:server",
+        "start": "node ./dist/server/server.js"
     }
 }

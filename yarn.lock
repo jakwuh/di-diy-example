@@ -4216,9 +4216,9 @@ type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.15"
 
-typedi@^0.6.0:
+"typedi@https://github.com/jakwuh/typedi/archive/master.tar.gz":
   version "0.6.0"
-  resolved "https://registry.yarnpkg.com/typedi/-/typedi-0.6.0.tgz#d011024eb250692327572bcacbb46afb45b74a51"
+  resolved "https://github.com/jakwuh/typedi/archive/master.tar.gz#cafbfa2d3d66d95a908ff24b62e9e5aac7a013ca"
 
 typescript@^2.6.2:
   version "2.6.2"
