@@ -67,7 +67,7 @@ export class ProfileContainer extends BaseComponent<ProfileContainerProps> {
                     <CardMedia>
                         <img src={imageUrl} alt=""/>
                     </CardMedia>
-                    <CardTitle title="Upload profile photo"/>
+                    <CardTitle style={{maxWidth: 230, wordWrap: 'break-word', paddingBottom: 0}} title={currentUser.email}/>
                     <CardText>
                         <Uploader
                             value={imageUrl}
