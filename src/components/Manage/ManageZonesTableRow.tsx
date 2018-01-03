@@ -78,6 +78,15 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
     }
 
     @action.bound
+    cancel(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.props.zone.setAttributes(this.zoneJson);
+        this.isEditing = false;
+    }
+
+    @action.bound
     onChangeName(event) {
         this.props.zone.name = event.currentTarget.value;
     }
@@ -167,6 +176,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
                 <SelectField
                     id="manage-zones-select-user"
                     name="user"
+                    maxHeight={200}
                     value={zone.user && users.find(user => user.id === zone.user.id)}
                     onChange={this.onChangeUser}
                 >
@@ -193,21 +203,32 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
                 <TableRowColumn>{this.getOffsetColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getCityColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getUserColumn()}</TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        onClick={this.save}
-                        style={{marginRight: 10}}
-                        label="Save"
-                        disabled={this.isLoading || !this.isEdited}
-                        primary
-                    />
-                    {zone.isNew ? null :
+                <TableRowColumn width="25%">
+                    {!this.isEditing ? null :
                         <RaisedButton
+                            onClick={this.save}
+                            style={{marginRight: 10}}
+                            label="Save"
+                            disabled={this.isLoading || !this.isEdited}
+                            primary
+                        />
+                    }
+                    {zone.isNew || !this.isEditing ? null :
+                        <RaisedButton
+                            style={{marginRight: 10}}
                             onClick={this.remove}
                             label="Delete"
                             disabled={this.isLoading}
                             secondary
                         />}
+                    {zone.isNew || !this.isEditing ? null :
+                        <RaisedButton
+                            key="cancel"
+                            onClick={this.cancel}
+                            label="Cancel"
+                            disabled={this.isLoading}
+                        />
+                    }
                 </TableRowColumn>
             </TableRow>
         );

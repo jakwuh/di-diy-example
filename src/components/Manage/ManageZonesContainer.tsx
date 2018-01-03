@@ -47,7 +47,7 @@ export class ManageZonesContainer extends BaseComponent<ManageZonesContainerProp
                         <TableHeaderColumn>Offset</TableHeaderColumn>
                         <TableHeaderColumn>City</TableHeaderColumn>
                         <TableHeaderColumn>User</TableHeaderColumn>
-                        <TableHeaderColumn/>
+                        <TableHeaderColumn width="25%"/>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>

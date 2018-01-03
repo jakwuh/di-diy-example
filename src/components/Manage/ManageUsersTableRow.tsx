@@ -84,6 +84,15 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
     }
 
     @action.bound
+    cancel(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.props.user.setAttributes(this.userJson);
+        this.isEditing = false;
+    }
+
+    @action.bound
     onChangeEmail(event) {
         this.props.user.email = event.currentTarget.value;
     }
@@ -171,14 +180,16 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
                 <TableRowColumn>{this.getRolesColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getLoginAttemptsColumn()}</TableRowColumn>
                 <TableRowColumn>
-                    <RaisedButton
-                        onClick={this.save}
-                        style={{marginRight: 10}}
-                        label="Save"
-                        disabled={this.isLoading || !this.isEdited}
-                        primary
-                    />
-                    {!user.isNew || !currentUser.hasRole(Roles.Admin) ? null :
+                    {!this.isEditing ? null :
+                        <RaisedButton
+                            onClick={this.save}
+                            style={{marginRight: 10}}
+                            label="Save"
+                            disabled={this.isLoading || !this.isEdited}
+                            primary
+                        />
+                    }
+                    {!user.isNew || !currentUser.hasRole(Roles.Admin) || !this.isEditing ? null :
                         <RaisedButton
                             onClick={this.invite}
                             style={{marginRight: 10}}
@@ -186,13 +197,22 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
                             disabled={this.isLoading || !this.isEdited}
                             primary
                         />}
-                    {user.isNew ? null :
+                    {user.isNew || !this.isEditing ? null :
                         <RaisedButton
+                            style={{marginRight: 10}}
                             onClick={this.remove}
                             label="Delete"
                             disabled={this.isLoading}
                             secondary
                         />}
+                    {user.isNew || !this.isEditing ? null :
+                        <RaisedButton
+                            key="cancel"
+                            onClick={this.cancel}
+                            label="Cancel"
+                            disabled={this.isLoading}
+                        />
+                    }
                 </TableRowColumn>
             </TableRow>
         );
