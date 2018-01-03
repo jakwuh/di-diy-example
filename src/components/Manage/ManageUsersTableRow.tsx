@@ -19,14 +19,13 @@ interface ManageUsersTableRowProps {
 @observer
 export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps> {
     @observable isEditing: boolean;
-
     @observable userJson: any;
 
     constructor(props: ManageUsersTableRowProps) {
         super(props);
 
         this.isEditing = props.user.isNew;
-        this.userJson = props.user.toAdminJSON();
+        this.userJson = props.user.toJSON();
     }
 
     @computed get isLoading() {
@@ -39,7 +38,7 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
         let otherUsers = users.filter(model => model.id !== user.id);
 
         return !validateEmail(user) && !otherUsers.find(_user => _user.email === user.email) && (
-            user.isNew || !isEqual(this.userJson, user.toAdminJSON())
+            user.isNew || !isEqual(this.userJson, user.toJSON())
         );
     }
 
@@ -55,9 +54,14 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
         event.preventDefault();
         event.stopPropagation();
 
+        let isNew = this.props.user.isNew;
+
         promiseFactory().then(() => {
-            this.props.users.push(this.props.user);
-            this.userJson = this.props.user.toAdminJSON();
+            if (isNew) {
+                this.props.users.push(this.props.user);
+            }
+
+            this.userJson = this.props.user.toJSON();
             this.isEditing = false;
         }, console.error);
     }
@@ -90,7 +94,6 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
     @action.bound
     onChangeRole(event, index, value) {
         this.props.user.role = value;
-        setTimeout(() => this.render(), 100);
     }
 
     getEmailColumn() {
@@ -140,7 +143,11 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
                     onChange={this.onChangeRole}
                 >
                     {allowedRoles.map(role => {
-                        return <MenuItem value={Roles[role]} primaryText={RolesNames[Roles[role]]}/>
+                        return <MenuItem
+                            key={role}
+                            value={Roles[role]}
+                            primaryText={RolesNames[Roles[role]]}
+                        />
                     })}
                 </SelectField>
             );

@@ -30,6 +30,11 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
         this.props.router.navigateTo(Routes.manageUsers);
     }
 
+    @action.bound
+    manageZones() {
+        this.props.router.navigateTo(Routes.manageZones);
+    }
+
     getLoggedInEl() {
         let {user} = this.props;
 
@@ -41,12 +46,18 @@ export class DocumentHead extends BaseComponent<DocumentHeadProps> {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
-                {user.hasRole(Roles.Manager) ?
+                {!user.hasRole(Roles.Manager) ? null :
                     <MenuItem
                         primaryText="Manage Users"
                         onClick={this.manageUsers}
-                    /> : null}
-                {user.hasRole(Roles.Admin) ? <MenuItem primaryText="Manage Timezones"/> : null}
+                    />
+                }
+                {!user.hasRole(Roles.Admin) ? null :
+                    <MenuItem
+                        primaryText="Manage Timezones"
+                        onClick={this.manageZones}
+                    />
+                }
                 <MenuItem
                     primaryText="Sign out"
                     onClick={this.signOut}

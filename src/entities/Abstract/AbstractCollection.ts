@@ -1,13 +1,17 @@
 import {AbstractEntity} from './AbstractEntity';
-import {observable} from 'mobx';
+import {computed, observable} from 'mobx';
 import {Service} from 'typedi';
 import {AbstractModel} from './AbstractModel';
 
 @Service()
-export class AbstractCollection<T = any> extends AbstractEntity {
+export class AbstractCollection<T extends AbstractModel = AbstractModel> extends AbstractEntity {
     urlRoot = '';
 
     @observable models: T[] = [];
+
+    @computed get length() {
+        return this.models.length;
+    }
 
     get url() {
         return this.urlRoot;
@@ -15,13 +19,7 @@ export class AbstractCollection<T = any> extends AbstractEntity {
 
 
     fetch(params: Dict<any> = {}) {
-        return super.fetch(params).then(response => {
-            if (response.data) {
-                this.models = response.data;
-            }
-
-            return this;
-        });
+        return super.fetch(params)
     }
 
     remove(model: AbstractModel) {

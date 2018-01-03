@@ -5,7 +5,6 @@ import {Roles} from '../../enums';
 
 @Service()
 export class User extends AbstractModel {
-    @observable id?: string;
     @observable email?: string;
     @observable password?: string;
     @observable loginAttempts?: number = 0;
@@ -17,28 +16,22 @@ export class User extends AbstractModel {
         return this.id;
     }
 
-    @computed get isNew() {
-        return !this.id;
-    }
-
     hasRole(role: Roles) {
         return this.role && this.role >= role;
     }
 
     saveAdmin() {
-        let data = this.toAdminJSON();
-
-        return this.isNew ? this.post({data}) : this.put({data});
+        return this.save();
     }
 
     invite() {
         return this.post({
             url: '/api/invite',
-            data: this.toAdminJSON()
+            data: this.toJSON()
         });
     }
 
-    toAdminJSON() {
+    toJSON() {
         return {
             id: this.id,
             email: this.email,

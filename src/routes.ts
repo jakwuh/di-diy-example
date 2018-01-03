@@ -1,12 +1,13 @@
 import {ResetPasswordContainer, ResetPasswordContainerProps} from './components/Auth/ResetPasswordContainer';
 import {ConfirmationContainer, ConfirmationContainerProps} from './components/Auth/ConfirmationContainer';
+import {ManageUsersContainer, ManageUsersContainerProps} from './components/Manage/ManageUsersContainer';
+import {ManageZonesContainer, ManageZonesContainerProps} from './components/Manage/ManageZonesContainer';
 import {ForgotContainer, ForgotContainerProps} from './components/Auth/ForgotContainer';
 import {SignUpContainer, SignUpContainerProps} from './components/Auth/SignUpContainer';
 import {SignInContainer, SignInContainerProps} from './components/Auth/SignInContainer';
 import {HomeContainer, HomeContainerProps} from './components/Home/HomeContainer';
 import {RouterEvent} from 'quantum-router/src/declarations';
 import {CurrentUser} from './entities/User/CurrentUser';
-import {ManageUsersContainer, ManageUsersContainerProps} from './components/Manage/ManageUsersContainer';
 import {Roles} from './enums';
 
 export enum Routes {
@@ -16,7 +17,8 @@ export enum Routes {
     forgot,
     resetPassword,
     confirm,
-    manageUsers
+    manageUsers,
+    manageZones,
 }
 
 export const routesConfig = {
@@ -26,7 +28,8 @@ export const routesConfig = {
     '/forgot/': Routes.forgot,
     '/reset-password/': Routes.resetPassword,
     '/confirm/': Routes.confirm,
-    '/manage-users/': Routes.manageUsers
+    '/manage-users/': Routes.manageUsers,
+    '/manage-zones/': Routes.manageZones
 };
 
 export const containerConfig = {
@@ -70,6 +73,12 @@ export const containerConfig = {
         Component: ManageUsersContainer,
         ComponentProps: ManageUsersContainerProps,
         check: (user: CurrentUser) => user.loggedIn && user.hasRole(Roles.Manager),
+        fallback: Routes.home
+    },
+    [Routes.manageZones]: {
+        Component: ManageZonesContainer,
+        ComponentProps: ManageZonesContainerProps,
+        check: (user: CurrentUser) => user.loggedIn && user.hasRole(Roles.Admin),
         fallback: Routes.home
     }
 };

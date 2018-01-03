@@ -9,12 +9,14 @@ import {ValidationErrors} from 'validatorjs';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {UserForgotState} from '../../states/UserForgotState';
 import {Users} from '../../entities/User/Users';
-import {ManageUsersState} from '../../states/ManageUsersState';
 import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui';
-import {ManageUsersTableRow} from 'components/Manage/ManageUsersTableRow';
+import {ManageZonesTableRow} from 'components/Manage/ManageZonesTableRow';
 import {User} from '../../entities/User/User';
+import {ManageZonesState} from '../../states/ManageZonesState';
+import {AdminZones} from '../../entities/Zone/AdminZones';
+import {AdminZone} from '../../entities/Zone/AdminZone';
 
-export class ManageUsersContainerProps {
+export class ManageZonesContainerProps {
     @Inject()
     currentUser: CurrentUser;
 
@@ -22,44 +24,53 @@ export class ManageUsersContainerProps {
     users: Users;
 
     @Inject()
-    routeState: ManageUsersState;
+    zones: AdminZones;
+
+    @Inject()
+    routeState: ManageZonesState;
 
     @Inject(() => AbstractRouter)
     router: AbstractRouter
 }
 
 @observer
-export class ManageUsersContainer extends BaseComponent<ManageUsersContainerProps> {
+export class ManageZonesContainer extends BaseComponent<ManageZonesContainerProps> {
     render() {
-        let {users, currentUser} = this.props;
+        let {users, zones, currentUser} = this.props;
 
         return (
             <Table>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                     <TableRow>
-                        <TableHeaderColumn>Email</TableHeaderColumn>
-                        <TableHeaderColumn>Role</TableHeaderColumn>
-                        <TableHeaderColumn>Login attempts</TableHeaderColumn>
+                        <TableHeaderColumn>Name</TableHeaderColumn>
+                        <TableHeaderColumn>Offset</TableHeaderColumn>
+                        <TableHeaderColumn>City</TableHeaderColumn>
+                        <TableHeaderColumn>User</TableHeaderColumn>
                         <TableHeaderColumn/>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                    {users.map((user: User) => {
+                    {zones.map(zone => {
                         return (
-                            <ManageUsersTableRow
-                                key={user.id}
-                                user={user}
+                            <ManageZonesTableRow
+                                key={zone.id}
+                                zone={zone}
                                 users={users}
+                                zones={zones}
                                 currentUser={currentUser}
                             />
                         );
                     })}
-                    <ManageUsersTableRow
-                        key="new"
-                        user={new User(users.request)}
-                        users={users}
-                        currentUser={currentUser}
-                    />
+                    {!users.length
+                        ? <TableRow>No users available.</TableRow>
+                        : <ManageZonesTableRow
+                            key="new"
+                            zone={new AdminZone(zones.request)}
+                            zones={zones}
+                            users={users}
+                            currentUser={currentUser}
+                        />
+                    }
                 </TableBody>
             </Table>
         );
