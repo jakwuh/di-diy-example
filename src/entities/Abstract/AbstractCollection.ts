@@ -28,15 +28,15 @@ export class AbstractCollection<T extends AbstractModel = AbstractModel> extends
         });
     }
 
-    map(fn) {
+    map(fn): any[] {
         return this.models.map(fn);
     }
 
-    find(fn) {
+    find(fn): T | undefined {
         return this.models.find(fn);
     }
 
-    filter(fn) {
+    filter(fn): T[] {
         return this.models.filter(fn);
     }
 

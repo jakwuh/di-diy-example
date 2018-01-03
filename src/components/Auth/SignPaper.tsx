@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Paper} from 'components/ui';
+import {Paper} from 'components/ui.tsx';
 import {Routes} from '../../routes';
 import {action} from 'mobx';
 import {BaseComponent} from '../Common/BaseComponent';

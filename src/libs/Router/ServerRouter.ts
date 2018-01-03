@@ -3,6 +3,9 @@ import {RouterEvent} from 'quantum-router/src/declarations';
 import {createRenderDom} from './middleware/createRenderDom';
 import {Service, ContainerInstance} from 'typedi';
 import {renderToString} from 'react-dom/server';
+import {useStaticRendering} from 'mobx-react';
+
+useStaticRendering(true);
 
 export type ServerRouterEvent = RouterEvent & {body: string, redirectTo: string}
 

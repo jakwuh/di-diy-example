@@ -1,30 +1,32 @@
 import * as React from 'react';
 import {BaseComponent} from '../Common/BaseComponent';
-import {User} from '../../entities/User/User';
 import {TableRow, TableRowColumn, RaisedButton, TextField, SelectField, MenuItem} from 'components/ui.tsx';
-import {observer} from 'mobx-react';
-import {Users} from '../../entities/User/Users';
+import {observer, Observer} from 'mobx-react';
 import {action, computed, observable} from 'mobx';
 import {isEqual} from 'lodash';
-import {Roles, RolesNames} from '../../enums';
 import {CurrentUser} from '../../entities/User/CurrentUser';
-import {validateEmail} from '../../helpers/validation';
-import {AdminZone} from '../../entities/Zone/AdminZone';
-import {AdminZones} from '../../entities/Zone/AdminZones';
+import {range} from 'lodash';
+import {CurrentZones} from '../../entities/Zone/CurrentZones';
+import {CurrentZone} from '../../entities/Zone/CurrentZone';
+import {offsetCurrentTimeFactory, offsetToGMT} from '../../helpers/formatTime';
+import {format, addHours} from 'date-fns';
+import {ReactElement} from 'react';
 
-interface ManageZonesTableRowProps {
-    zone: AdminZone;
-    zones: AdminZones;
-    users: Users;
+interface ZoneTableRowProps {
+    zone: CurrentZone;
+    zones: CurrentZones;
     currentUser: CurrentUser;
+    currentTimeProvider: {
+        currentTime: Date;
+    }
 }
 
 @observer
-export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps> {
+export class ZoneTableRow extends BaseComponent<ZoneTableRowProps> {
     @observable isEditing: boolean;
     @observable zoneJson: any;
 
-    constructor(props: ManageZonesTableRowProps) {
+    constructor(props: ZoneTableRowProps) {
         super(props);
 
         this.isEditing = props.zone.isNew;
@@ -38,7 +40,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
     @computed get isEdited() {
         let {zone} = this.props;
 
-        return zone.city && zone.name && zone.user
+        return zone.city && zone.name
             && (zone.isNew || !isEqual(this.zoneJson, zone.toJSON()));
     }
 
@@ -75,6 +77,15 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
     }
 
     @action.bound
+    cancel(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.props.zone.setAttributes(this.zoneJson);
+        this.isEditing = false;
+    }
+
+    @action.bound
     onChangeName(event) {
         this.props.zone.name = event.currentTarget.value;
     }
@@ -85,18 +96,8 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
     }
 
     @action.bound
-    onChangeOffset(event) {
-        this.props.zone.offset = Number(event.currentTarget.value);
-    }
-
-    @action.bound
-    onBlurOffset() {
-        this.props.zone.offset = Math.max(-12, Math.min(12, this.props.zone.offset))
-    }
-
-    @action.bound
-    onChangeUser(event, index, value) {
-        this.props.zone.user = value;
+    onChangeOffset(event, index, value) {
+        this.props.zone.offset = value;
     }
 
     getNameColumn() {
@@ -138,41 +139,63 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
 
         if (this.isEditing) {
             return (
-                <TextField
-                    name="offset"
-                    type="number"
-                    min="-12"
-                    max="12"
-                    value={zone.offset}
-                    onChange={this.onChangeOffset}
-                    onBlur={this.onBlurOffset}
-                />
-            );
-        } else {
-            return zone.offset;
-        }
-    }
-
-    getUserColumn() {
-        let {zone, users} = this.props;
-
-        if (this.isEditing) {
-            return (
-                <SelectField
-                    value={zone.user && users.find(user => user.id === zone.user.id)}
-                    onChange={this.onChangeUser}
-                >
-                    {users.map(user => {
+                <SelectField maxHeight={200} value={zone.offset} onChange={this.onChangeOffset}>
+                    {range(-12, 12).map(value => {
                         return <MenuItem
-                            key={user.id}
-                            value={user}
-                            primaryText={user.email}
+                            key={value}
+                            value={value}
+                            primaryText={offsetToGMT(value)}
                         />
                     })}
                 </SelectField>
             );
         } else {
-            return zone.user && zone.user.email;
+            return offsetToGMT(zone.offset)
+        }
+    }
+
+    getLastColumn() {
+        let {zone, currentTimeProvider} = this.props;
+
+        let offsetCurrentTime = offsetCurrentTimeFactory(zone.offset);
+
+        if (this.isEditing) {
+            return (
+                [(
+                    <RaisedButton
+                        key="save"
+                        onClick={this.save}
+                        style={{marginRight: 10}}
+                        label="Save"
+                        disabled={this.isLoading || !this.isEdited}
+                        primary
+                    />
+                ), (
+                    zone.isNew ? null :
+                        <RaisedButton
+                            key="delete"
+                            onClick={this.remove}
+                            style={{marginRight: 10}}
+                            label="Delete"
+                            disabled={this.isLoading}
+                            secondary
+                        />
+                ), (
+                    zone.isNew ? null :
+                        <RaisedButton
+                            key="cancel"
+                            onClick={this.cancel}
+                            label="Cancel"
+                            disabled={this.isLoading}
+                        />
+                )]
+            )
+        } else {
+            return (
+                <Observer>
+                    {() => offsetCurrentTime(currentTimeProvider.currentTime) as any}
+                </Observer>
+            )
         }
     }
 
@@ -184,23 +207,7 @@ export class ManageZonesTableRow extends BaseComponent<ManageZonesTableRowProps>
                 <TableRowColumn>{this.getNameColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getOffsetColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getCityColumn()}</TableRowColumn>
-                <TableRowColumn>{this.getUserColumn()}</TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        onClick={this.save}
-                        style={{marginRight: 10}}
-                        label="Save"
-                        disabled={this.isLoading || !this.isEdited}
-                        primary
-                    />
-                    {zone.isNew ? null :
-                        <RaisedButton
-                            onClick={this.remove}
-                            label="Delete"
-                            disabled={this.isLoading}
-                            secondary
-                        />}
-                </TableRowColumn>
+                <TableRowColumn>{this.getLastColumn()}</TableRowColumn>
             </TableRow>
         );
     }

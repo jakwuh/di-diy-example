@@ -9,7 +9,7 @@ import {ValidationErrors} from 'validatorjs';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {UserForgotState} from '../../states/UserForgotState';
 import {Users} from '../../entities/User/Users';
-import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui';
+import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui.tsx';
 import {ManageZonesTableRow} from 'components/Manage/ManageZonesTableRow';
 import {User} from '../../entities/User/User';
 import {ManageZonesState} from '../../states/ManageZonesState';

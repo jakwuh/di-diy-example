@@ -10,7 +10,7 @@ import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {UserForgotState} from '../../states/UserForgotState';
 import {Users} from '../../entities/User/Users';
 import {ManageUsersState} from '../../states/ManageUsersState';
-import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui';
+import {Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn} from 'components/ui.tsx';
 import {ManageUsersTableRow} from 'components/Manage/ManageUsersTableRow';
 import {User} from '../../entities/User/User';
 

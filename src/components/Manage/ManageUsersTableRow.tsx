@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {BaseComponent} from '../Common/BaseComponent';
 import {User} from '../../entities/User/User';
-import {TableRow, TableRowColumn, RaisedButton, TextField, SelectField, MenuItem} from 'components/ui';
+import {TableRow, TableRowColumn, RaisedButton, TextField, SelectField, MenuItem} from 'components/ui.tsx';
 import {observer} from 'mobx-react';
 import {Users} from '../../entities/User/Users';
 import {action, computed, observable} from 'mobx';

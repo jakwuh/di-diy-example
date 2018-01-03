@@ -4,7 +4,7 @@ import {AbstractCollection} from '../Abstract/AbstractCollection';
 import {User} from './User';
 
 @Service({id: Users, factory: Users.factory})
-export class Users extends AbstractCollection {
+export class Users extends AbstractCollection<User> {
     urlRoot = '/api/users/';
 
     static factory(request: AbstractRequest) {

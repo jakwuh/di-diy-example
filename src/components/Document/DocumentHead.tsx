@@ -5,7 +5,7 @@ import {BaseComponent} from '../Common/BaseComponent';
 import {CurrentUser, User} from '../../entities/User/User';
 import {AbstractRouter} from '../../libs/Router/AbstractRouter';
 import {Routes} from '../../routes';
-import {FlatButton, IconButton, MoreVertIcon, MenuItem, IconMenu} from 'components/ui';
+import {FlatButton, IconButton, MoreVertIcon, MenuItem, IconMenu} from 'components/ui.tsx';
 import {observer} from 'mobx-react';
 import {Roles} from '../../enums';
 import {action} from 'mobx';

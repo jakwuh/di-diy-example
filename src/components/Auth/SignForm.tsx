@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextField, RaisedButton} from 'components/ui';
+import {TextField, RaisedButton} from 'components/ui.tsx';
 import {BaseComponent} from '../Common/BaseComponent';
 import {FormEvent} from 'react';
 import {action, observable} from 'mobx';
