@@ -5,7 +5,7 @@ import {TableRow, TableRowColumn, RaisedButton, TextField, SelectField, MenuItem
 import {observer} from 'mobx-react';
 import {Users} from '../../entities/User/Users';
 import {action, computed, observable} from 'mobx';
-import {isEqual} from 'lodash';
+import * as isEqual from 'lodash/isEqual';
 import {Roles, RolesNames} from '../../enums';
 import {CurrentUser} from '../../entities/User/CurrentUser';
 import {validateEmail} from '../../helpers/validation';

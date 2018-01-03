@@ -1,5 +1,5 @@
 import * as React from 'react';
-import uploadcare from 'uploadcare-widget';
+import * as uploadcare from 'uploadcare-widget';
 import {BaseComponent} from './BaseComponent';
 import {action} from 'mobx';
 
@@ -25,15 +25,20 @@ class Uploader extends BaseComponent<UploaderProps> {
 
     componentDidMount() {
         const {value} = this.props;
-        const widget = this.widget = uploadcare.Widget(this.uploader);
+        this.widget = uploadcare.Widget(this.uploader);
 
-        widget.value(value);
-        widget.onChange(this.onChange);
+        this.updateWidget(value);
     }
 
     componentDidUpdate() {
         this.widget.onChange.remove(this.onChange);
-        this.widget.value(this.props.value);
+        this.updateWidget(this.props.value);
+    }
+
+    updateWidget(value) {
+        if (value && String(value).indexOf('ucarecdn') > -1) {
+            this.widget.value(value);
+        }
         this.widget.onChange(this.onChange);
     }
 

@@ -6,7 +6,7 @@ let root = resolve(__dirname, '../');
 let src = join(root, 'src');
 let dist = join(root, 'dist');
 
-let isDevelopment = true;
+let isDevelopment = process.env.NODE_ENV !== 'production';
 
 let config: webpack.Configuration = {
     entry: {
@@ -59,13 +59,17 @@ let config: webpack.Configuration = {
         new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({
             IS_SERVER: false,
-            IS_CLIENT: true,
-            // CLIENT_ID: JSON.stringify('f10de77025978ee1ed0b') // dev
-            CLIENT_ID: JSON.stringify('fe2214b6b6d577b87355')
+            IS_CLIENT: true
         }),
         new webpack.EnvironmentPlugin({
             NODE_ENV: isDevelopment ? 'development' : 'production'
-        })
+        }),
+        ...(isDevelopment ? [] : [
+            new webpack.optimize.UglifyJsPlugin({
+                sourceMap: false,
+                mangle: true
+            })
+        ])
     ]
 };
 

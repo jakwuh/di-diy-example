@@ -4,7 +4,7 @@ import {Document, DocumentProps} from 'components/Document/Document';
 import * as React from 'react';
 import {containerConfig} from 'routes';
 import {ContainerInstance} from 'typedi';
-import {pick} from 'lodash';
+import * as pick from 'lodash/pick';
 import {CurrentUser} from '../../../entities/User/CurrentUser';
 import {AbstractRouter} from '../AbstractRouter';
 import {DocumentWrapper} from '../../../components/Document/DocumentWrapper';

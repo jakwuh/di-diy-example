@@ -51,8 +51,8 @@
         "watch:server": "npm run build:server -- -w | nodemon ./dist/server/server.js",
         "watch:client": "npm run build:client -- -w",
         "watch": "npm run watch:client | npm run watch:server",
-        "build:server": "webpack --config ./build/webpack.server.config.ts",
-        "build:client": "webpack --config ./build/webpack.client.config.ts",
+        "build:server": "NODE_ENV=production webpack --config ./build/webpack.server.config.ts",
+        "build:client": "NODE_ENV=production webpack --config ./build/webpack.client.config.ts",
         "build": "npm run build:client && npm run build:server",
         "start": "node ./dist/server/server.js"
     }

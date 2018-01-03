@@ -22,9 +22,6 @@ export class DocumentWrapper extends BaseComponent {
             </div>
             {IS_SERVER &&
             <script dangerouslySetInnerHTML={{__html: `UPLOADCARE_PUBLIC_KEY = '${UPLOADCARE_PUBLIC_KEY}';`}}/>}
-            {IS_SERVER && <script src="https://code.jquery.com/jquery-3.1.0.min.js" charSet="utf-8"/>}
-            {IS_SERVER &&
-            <script src="https://ucarecdn.com/widget/2.9.0/uploadcare/uploadcare.min.js" charSet="utf-8"/>}
             {IS_SERVER && <DocumentRestoreData restoreData={{}}/>}
             {IS_SERVER && <script src="/assets/index.js"/>}
             </body>
