@@ -16,6 +16,7 @@ import {action, observable} from 'mobx';
 import Uploader from '../Common/Uploader';
 import {ProfileState} from '../../states/ProfileState';
 import {getAvatarUrl} from '../../helpers/getAvatarUrl';
+import {Routes} from '../../routes';
 
 export class ProfileContainerProps {
     @Inject()
@@ -39,8 +40,15 @@ export class ProfileContainer extends BaseComponent<ProfileContainerProps> {
     }
 
     @action.bound
-    remove() {
+    removePhoto() {
         this.onChangeImage(null);
+    }
+
+    @action.bound
+    removeAccount() {
+        this.props.currentUser.remove().then(() => {
+            this.props.router.navigateTo(Routes.signIn);
+        });
     }
 
     render() {
@@ -66,15 +74,25 @@ export class ProfileContainer extends BaseComponent<ProfileContainerProps> {
                             onChange={this.onChangeImage}
                         />
                     </CardText>
-                    {!currentUser.avatarUrl ? null :
-                        <CardActions>
+                    <CardActions>
+                        {!currentUser.avatarUrl ? null : [
                             <RaisedButton
-                                onClick={this.remove}
-                                label="Remove"
+                                key="photo"
+                                style={{marginBottom: 10}}
+                                onClick={this.removePhoto}
+                                label="Remove photo"
                                 secondary
-                            />
-                        </CardActions>
-                    }
+                            />,
+                            <br key="photo-br"/>
+                        ]}
+                        <RaisedButton
+                            key="account"
+                            onClick={this.removeAccount}
+                            label="Remove account"
+                            secondary
+                        />
+                    </CardActions>
+
                 </Card>
             </div>
 

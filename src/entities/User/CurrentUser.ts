@@ -39,8 +39,14 @@ export class CurrentUser extends User {
         });
     }
 
+    remove() {
+        return super.delete().then(() => {
+            this.invalidated = true;
+        });
+    }
+
     requestResetPassword() {
-        return this.delete({
+        return super.delete({
             url: '/api/user/password',
             data: {
                 email: this.email
