@@ -25,6 +25,7 @@
         "babel-preset-react": "7.0.0-beta.3",
         "cookie-parser": "^1.4.3",
         "css-loader": "^0.28.7",
+        "cypress": "^1.4.1",
         "date-fns": "^1.29.0",
         "express": "^4.16.2",
         "express-http-proxy": "^1.1.0",
@@ -66,7 +67,7 @@
         ],
         "moduleNameMapper": {},
         "roots": [
-            "./",
+            "./src",
             "./node_modules/typedi/"
         ]
     },
@@ -78,6 +79,7 @@
         "build:client": "NODE_ENV=production webpack --config ./build/webpack.client.config.ts",
         "build": "npm run build:client && npm run build:server",
         "start": "node ./dist/server/server.js",
-        "test": "jest"
+        "test": "jest",
+        "cypress:open": "cypress open"
     }
 }

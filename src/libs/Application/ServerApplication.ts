@@ -71,6 +71,7 @@ export class ServerApplication {
             if (event.redirectTo) {
                 res.redirect(event.redirectTo);
             } else {
+                res.type('html');
                 res.end(event.body);
             }
 
