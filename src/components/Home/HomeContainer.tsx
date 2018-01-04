@@ -12,6 +12,7 @@ import {observer} from 'mobx-react';
 import {action, observable} from 'mobx';
 import {setInterval} from 'timers';
 import Timer = NodeJS.Timer;
+import * as debounce from 'lodash/debounce';
 import {FilterIcon, TextField, blue500} from 'components/ui';
 
 export class HomeContainerProps {
@@ -40,6 +41,8 @@ export class HomeContainer extends BaseComponent<HomeContainerProps> {
 
         this.currentTime = new Date();
 
+        this.fetchZones = debounce(this.fetchZones, 100, {leading: false, trailing: true});
+
         this.timer = setInterval(() => {
             this.currentTime = new Date();
         }, 1000);
@@ -55,9 +58,18 @@ export class HomeContainer extends BaseComponent<HomeContainerProps> {
         this.filterOpened = false;
     }
 
+    fetchZones() {
+        this.props.zones.fetch({
+            params: {
+                q: this.name
+            }
+        }).catch(console.error);
+    }
+
     @action.bound
     onChangeName(event) {
         this.name = event.currentTarget.value;
+        this.fetchZones();
     }
 
     componentWillUnmount() {
@@ -92,7 +104,7 @@ export class HomeContainer extends BaseComponent<HomeContainerProps> {
         let filteredZones = zones.filter(zone => zone.name.includes(this.name));
 
         return (
-            <Table>
+            <Table style={{position: 'relative'}}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                     <TableRow>
                         <TableHeaderColumn>{this.getNameHeaderColumn()}</TableHeaderColumn>

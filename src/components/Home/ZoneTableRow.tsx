@@ -216,6 +216,7 @@ export class ZoneTableRow extends BaseComponent<ZoneTableRowProps> {
                 <TableRowColumn>{this.getOffsetColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getCityColumn()}</TableRowColumn>
                 <TableRowColumn>{this.getLastColumn()}</TableRowColumn>
+                {this.props.children}
             </TableRow>
         );
     }

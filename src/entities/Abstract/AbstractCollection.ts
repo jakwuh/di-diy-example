@@ -19,7 +19,7 @@ export class AbstractCollection<T extends AbstractModel = AbstractModel> extends
 
 
     fetch(params: Dict<any> = {}) {
-        return super.fetch(params)
+        return super.fetch(params);
     }
 
     remove(model: AbstractModel) {
