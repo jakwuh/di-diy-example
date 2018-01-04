@@ -1,11 +1,10 @@
 import {Router} from 'quantum-router/src/router';
 import {Routes, routesConfig} from '../../routes';
-import {ContainerInstance} from 'typedi';
 
 export class AbstractRouter extends Router {
 
-    constructor() {
-        super({routes: routesConfig});
+    constructor(routes = routesConfig) {
+        super({routes});
 
         (this as any).attachMiddleware();
     }

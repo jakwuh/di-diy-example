@@ -3,7 +3,6 @@ import {Inject} from 'typedi';
 import {CurrentUser} from '../entities/User/CurrentUser';
 import {ValidationErrors} from 'validatorjs';
 import {observable} from 'mobx';
-import {Routes} from '../routes';
 
 export class UserSignUpState extends AbstractState {
     @Inject()

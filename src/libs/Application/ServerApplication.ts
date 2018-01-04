@@ -48,10 +48,6 @@ export class ServerApplication {
         });
     }
 
-    handleError(req, res, next) {
-
-    }
-
     slashRedirect(req: Request, res, next) {
         if (!req.path.endsWith('/')) {
             res.redirect(req.path + '/' + (req.query ? '?' + stringify(req.query) : ''));

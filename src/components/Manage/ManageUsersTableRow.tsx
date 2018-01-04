@@ -35,9 +35,9 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
     }
 
     @computed get isEdited() {
-        let {user, users} = this.props;
+        let {user, users, currentUser} = this.props;
 
-        let otherUsers = users.filter(model => model.id !== user.id);
+        let otherUsers: User[] = (users.filter(model => model.id !== user.id) as User[]).concat([currentUser as User]);
 
         return !validateEmail(user) && !otherUsers.find(_user => _user.email === user.email) && (
             user.isNew || !isEqual(this.userJson, user.toJSON())
@@ -70,7 +70,7 @@ export class ManageUsersTableRow extends BaseComponent<ManageUsersTableRowProps>
 
     @action.bound
     save(event) {
-        this.saveOrInvite(event, () => this.props.user.saveAdmin());
+        this.saveOrInvite(event, () => this.props.user.save());
     }
 
     @action.bound

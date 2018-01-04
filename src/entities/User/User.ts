@@ -18,7 +18,7 @@ export class User extends AbstractModel {
     }
 
     hasRole(role: Roles) {
-        return this.role && this.role >= role;
+        return Boolean(this.hasOwnProperty('role') && this.role >= role);
     }
 
     toJSON() {

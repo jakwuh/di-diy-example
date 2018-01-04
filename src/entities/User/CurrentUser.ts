@@ -64,7 +64,7 @@ export class CurrentUser extends User {
         });
     }
 
-    toJSON() {
+    toJSON(): any {
         return {
             avatarUrl: this.avatarUrl
         };

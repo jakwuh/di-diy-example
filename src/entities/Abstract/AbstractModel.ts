@@ -1,4 +1,5 @@
-import {AbstractEntity} from './AbstractEntity';
+import
+{AbstractEntity} from './AbstractEntity';
 import {Service} from 'typedi';
 import {action, computed, observable} from 'mobx';
 

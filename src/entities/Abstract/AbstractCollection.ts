@@ -17,11 +17,6 @@ export class AbstractCollection<T extends AbstractModel = AbstractModel> extends
         return this.urlRoot;
     }
 
-
-    fetch(params: Dict<any> = {}) {
-        return super.fetch(params);
-    }
-
     remove(model: AbstractModel) {
         return model.delete().then(() => {
             this.models = this.models.filter(_model => _model.id !== model.id);

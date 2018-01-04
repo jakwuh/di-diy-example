@@ -5,10 +5,6 @@ import {User} from './User';
 export class AdminUser extends User {
     urlRoot = '/api/users';
 
-    saveAdmin() {
-        return this.save();
-    }
-
     invite() {
         return this.post({
             url: '/api/invite',
